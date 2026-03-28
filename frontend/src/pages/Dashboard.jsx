@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { Trash2, Package, MapPin, PlusCircle, Loader2 } from 'lucide-react';
+import API_BASE_URL from '../api/config'; // 1. IMPORT THE CONFIG HERE
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -21,7 +22,8 @@ const Dashboard = () => {
   // --- 1. FETCH ONLY YOUR CROPS ---
   const fetchMyCrops = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/crops');
+      // 2. USE THE API_BASE_URL HERE
+      const res = await axios.get(`${API_BASE_URL}/api/crops`);
 
       // Get current user from context or storage
       const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -32,7 +34,7 @@ const Dashboard = () => {
         return cropFarmerId === currentUserId;
       });
 
-      console.log("My Active Listings:", filtered); // Check your console for farmerPhone!
+      console.log("My Active Listings:", filtered); 
       setMyCrops(filtered);
       setLoading(false);
     } catch (err) {
@@ -62,27 +64,27 @@ const Dashboard = () => {
         return;
       }
 
-      // Inside handleSubmit in Dashboard.jsx
       const payload = {
         title: formData.title,
         pricePerKg: formData.pricePerKg,
         quantityAvailable: formData.quantityAvailable,
         location: formData.location,
         imageUrl: formData.imageUrl,
-        category: formData.category, // <--- THIS LINE IS MISSING IN YOUR CODE!
+        category: formData.category, 
         farmerId: storedUser._id,
         farmerName: storedUser.name,
         farmerPhone: storedUser.contactNumber
       };
 
+      // 3. USE THE API_BASE_URL HERE
       await axios.post(
-        'http://localhost:5000/api/crops',
+        `${API_BASE_URL}/api/crops`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setMsg("✅ Crop listed successfully!");
-      setFormData({ title: '', pricePerKg: '', quantityAvailable: '', location: '', imageUrl: '' });
+      setFormData({ title: '', pricePerKg: '', quantityAvailable: '', location: '', imageUrl: '', category: 'Grains' });
       fetchMyCrops();
     } catch (err) {
       setMsg("❌ " + (err.response?.data?.message || "Failed to list crop."));
@@ -96,7 +98,8 @@ const Dashboard = () => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
         const token = storedUser?.token;
 
-        await axios.delete(`http://localhost:5000/api/crops/${id}`, {
+        // 4. USE THE API_BASE_URL HERE
+        await axios.delete(`${API_BASE_URL}/api/crops/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 

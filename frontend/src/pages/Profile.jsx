@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { User, MapPin, Phone, Mail, Save, CheckCircle } from 'lucide-react';
-
+import API_BASE_URL from '../api/config';
 const Profile = () => {
   const { user, setUser } = useContext(AuthContext);
   const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ const Profile = () => {
       const storedUser = JSON.parse(localStorage.getItem('user'));
       const config = { headers: { Authorization: `Bearer ${storedUser.token}` } };
       
-      const res = await axios.put('http://localhost:5000/api/auth/profile', formData, config);
+      const res = await axios.put(`${API_BASE_URL}/api/auth/profile`, formData, config);
       
       // Update both Context and LocalStorage so the app stays in sync
       setUser(res.data);

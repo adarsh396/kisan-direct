@@ -6,11 +6,11 @@ require('dotenv').config();
 const app = express();
 
 // --- 1. UPDATED MIDDLEWARE ---
-// This allows BOTH your local computer AND your future Vercel link to talk to the backend
+// This allows BOTH your local computer AND your Vercel link to talk to the backend
 app.use(cors({
     origin: [
         'http://localhost:5173', 
-        'https://your-app-name.vercel.app' // You will update this after deploying to Vercel
+        'https://kisan-direct.vercel.app' // 🟢 YOUR REAL VERCEL URL IS HERE NOW!
     ],
     credentials: true
 }));

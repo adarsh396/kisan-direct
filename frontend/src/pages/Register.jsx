@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import API_BASE_URL from '../api/config';
 const Register = () => {
   const navigate = useNavigate(); // This lets us redirect the user after they sign up
   const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ const Register = () => {
     
     try {
       // 1. Send the data to your Node.js server
-      const response = await axios.post('http://localhost:5000/api/auth/register', formData);
+      const response = await axios.post(`${API_BASE_URL}/api/auth/register`, formData);
       
       // 2. The server sends back a JWT token and user info. Save it to the browser!
       localStorage.setItem('user', JSON.stringify(response.data));
