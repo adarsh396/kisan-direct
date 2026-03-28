@@ -8,10 +8,9 @@ const app = express();
 // --- 1. UPDATED MIDDLEWARE ---
 // This allows BOTH your local computer AND your Vercel link to talk to the backend
 app.use(cors({
-    origin: [
-        'http://localhost:5173', 
-        'https://kisan-direct.vercel.app' // 🟢 YOUR REAL VERCEL URL IS HERE NOW!
-    ],
+    origin: 
+        '*', // 🟢 YOUR REAL VERCEL URL IS HERE NOW!
+    
     credentials: true
 }));
 
