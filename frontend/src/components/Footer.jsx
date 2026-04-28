@@ -52,7 +52,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-2 text-gray-500 text-sm">
                 <MapPin size={16} className="text-emerald-500"/>
-                <span>New Delhi, India</span>
+                <span>Solan, India</span>
               </li>
             </ul>
           </div>
