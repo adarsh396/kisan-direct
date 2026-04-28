@@ -34,14 +34,23 @@ const Home = () => {
   });
 
   const contactOnWhatsApp = (phone, cropTitle) => {
+    // 1. Tell the console we clicked the button
+    console.log("WhatsApp button clicked! Phone number is:", phone);
+
     if (!phone) {
       alert("This farmer hasn't provided a contact number yet.");
       return;
     }
+
     const cleanPhone = phone.toString().replace(/\D/g, '');
     const message = `Hello! I saw your listing for "${cropTitle}" on Kisan-Direct. Is it still available?`;
     const url = `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    
+    // 2. Tell the console the URL we generated
+    console.log("Navigating to URL:", url);
+
+    // 3. Force redirect (Bypasses all pop-up blockers!)
+    window.location.href = url; 
   };
 
   return (
